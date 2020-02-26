@@ -1,29 +1,39 @@
+import axios from 'axios'
+
+
 class BaatoSearch {
-    constructor({ key, query }) {
-        this.key = key
-        this.query = query
-        this.baseUrl = baseUrl || 'http://178.128.59.143/api/v1'
+    constructor(props) {
+        this.key = props && props.key ? props.key : 'YOURAPIKEY'
+        this.query = props && props.query ? props.query : 'YOURQUERY'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://178.128.59.143/api/v1'
     }
 
     setKey(key) {
         this.key = key
-        return this;
+        return this
     }
 
     setQuery(query) {
         this.query = query
-        return this;
+        return this
+    }
+
+    setBaseUrl(baseUrl) {
+        this.baseUrl = baseUrl
+        return this
     }
 
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(this.getBaseUrl(), {
+            console.log('>>>>>>>>>', this.baseUrl)
+
+            return axios.get(`${this.baseUrl}/search`, {
                 params: {
                     key: this.key,
-                    query: this.query,
+                    q: this.query,
                 },
             })
-                .then(response => response.data)
+                .then((response) => { console.log(response); return response.data })
 
             // return fetch(this.getBaseUrl())
         }
@@ -33,4 +43,4 @@ class BaatoSearch {
 }
 
 
-export default BaatoSearch;
+export default BaatoSearch

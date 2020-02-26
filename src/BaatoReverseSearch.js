@@ -1,42 +1,49 @@
+import axios from 'axios'
+
 class BaatoReverseSearch {
-    constructor({ lat, lon, radius, key }) {
-        this.key = key
-        this.lat = lat
-        this.lon = lon
-        this.radius = radius || "2km" // based on spring-boot API design, quick hack 
-        this.baseUrl = baseUrl || 'http://178.128.59.143/api/v1'
+    constructor(
+        props,
+    ) {
+        this.key = props && props.key ? props.key : 'YOURQUERY'
+        this.lat = props && props.lat ? props.lat : null
+        this.lon = props && props.lon ? props.lon : null
+        this.radius = props && props.radius ? props.radius : 0.5 // based on spring-boot API design, quick hack
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://178.128.59.143/api/v1'
     }
 
     setKey(key) {
         this.key = key
-        return this;
+        return this
     }
 
     setLat(lat) {
         this.lat = lat
-        return this;
+        return this
     }
 
     setLon(lon) {
         this.lon = lon
-        return this;
+        return this
     }
 
-    
+
     setRadius(radius) {
         this.radius = radius
-        return this;
+        return this
     }
 
     setBaseUrl(baseUrl) {
         this.baseUrl = baseUrl
-        return this;
+        return this
     }
 
 
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(this.getBaseUrl(), {
+            console.log(this.lat, this.lon)
+
+
+            return axios.get(`${this.baseUrl}/reverse`, {
                 params: {
                     key: this.key,
                     lat: this.lat,
@@ -54,4 +61,4 @@ class BaatoReverseSearch {
 }
 
 
-export default BaatoSearch;
+export default BaatoReverseSearch

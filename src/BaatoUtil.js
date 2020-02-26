@@ -57,6 +57,34 @@ class BaatoUtil {
             coordinates: this.decodePath(encoded, false),
         }
     }
+
+    getGeoJsonFromSearchResults(searchResults) { //eslint-disable-line
+
+        const createFeature = item => ({
+            type: 'Feature',
+            properties: {
+                name: item.address,
+                tags: item.tags,
+                classification: item.classification,
+                type: item.type,
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [
+                    item.centroid.lon,
+                    item.centroid.lat,
+                ],
+            },
+        })
+
+        const features = searchResults.map(result => createFeature(result))
+
+
+        return {
+            type: 'FeatureCollection',
+            features,
+        }
+    }
 }
 
 
