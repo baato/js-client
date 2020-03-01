@@ -63,7 +63,8 @@ class BaatoUtil {
         const createFeature = item => ({
             type: 'Feature',
             properties: {
-                name: item.address,
+                name: item.name,
+                address: item.address,
                 tags: item.tags,
                 classification: item.classification,
                 type: item.type,

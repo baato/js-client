@@ -25,15 +25,13 @@ class BaatoSearch {
 
     async doRequest() {
         if (this.key !== null) {
-            console.log('>>>>>>>>>', this.baseUrl)
-
             return axios.get(`${this.baseUrl}/search`, {
                 params: {
                     key: this.key,
                     q: this.query,
                 },
             })
-                .then((response) => { console.log(response); return response.data })
+                .then(response => response.data)
 
             // return fetch(this.getBaseUrl())
         }

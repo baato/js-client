@@ -31,12 +31,17 @@ class BaatoRouting {
         return this
     }
 
+    addPoints(points) {
+        this.points = points
+        return this
+    }
+
     getBaseUrl() {
         if (this.alternativeRoutes) {
-            return `${this.baseUrl}/routes/alt`
+            return `${this.baseUrl}/routes/alternatives`
         }
 
-        return `${this.baseUrl}/routes/`
+        return `${this.baseUrl}/routes/best`
     }
 
 
@@ -44,10 +49,16 @@ class BaatoRouting {
         return this.key
     }
 
-    hasAlternativeRoutes(bool) {
-        this.alternativeRoutes = bool
+    getAlternatives() {
+        this.alternativeRoutes = true
         return this
     }
+
+    getBest() {
+        this.alternativeRoutes = false
+        return this
+    }
+
 
     hasInstructions(bool) {
         this.hasInstructions = bool
@@ -61,13 +72,20 @@ class BaatoRouting {
                     points: this.points,
                     key: this.key,
                     mode: this.vehicle,
-                    instructions: this.instructions,
-                    alternatives: this.alternativeRoutes,
                 },
             })
-            const myJson = response.data
+
+
             const bUtil = new BaatoUtil()
-            return bUtil.getGeoJsonFromEncodedPolyLine(myJson.encoded_polyline)
+
+
+            const finalData = response.data.length > 0 ? response.data.map(item => ({
+                geojson: bUtil.getGeoJsonFromEncodedPolyLine(item.encoded_polyline),
+                distanceInKm: item.distanceInKm,
+                timeInMs: item.timeInMs,
+            })) : []
+
+            return finalData
 
             // return fetch(this.getBaseUrl())
         }
