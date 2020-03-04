@@ -3,7 +3,7 @@ import BaatoUtil from './BaatoUtil'
 
 class BaatoRouting {
     constructor({ key, vehicle, baseUrl }) {
-        this.alternativeRoutes = false
+        this.alternatives = false
 
         this.instructions = false
 
@@ -37,11 +37,11 @@ class BaatoRouting {
     }
 
     getBaseUrl() {
-        if (this.alternativeRoutes) {
-            return `${this.baseUrl}/routes/alternatives`
+        if (this.alternatives) {
+            return `${this.baseUrl}/routes`
         }
 
-        return `${this.baseUrl}/routes/best`
+        return `${this.baseUrl}/routes`
     }
 
 
@@ -49,13 +49,13 @@ class BaatoRouting {
         return this.key
     }
 
-    getAlternatives() {
-        this.alternativeRoutes = true
+    includeAlternativeRoutes() {
+        this.alternatives = true
         return this
     }
 
     getBest() {
-        this.alternativeRoutes = false
+        this.alternatives = false
         return this
     }
 
@@ -72,6 +72,7 @@ class BaatoRouting {
                     points: this.points,
                     key: this.key,
                     mode: this.vehicle,
+                    alternatives: this.alternatives,
                 },
             })
 
