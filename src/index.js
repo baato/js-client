@@ -7,8 +7,8 @@ const Baato = {
     Routing: BaatoRouting,
     Util: BaatoUtil,
     Search: BaatoSearch,
-    Reverse: BaatoReverseSearch
+    Reverse: BaatoReverseSearch,
 }
 
 
-export default Baato;
+export default Baato
