@@ -78,7 +78,7 @@ class BaatoUtil {
             },
         })
 
-        const features = searchResults.map(result => createFeature(result))
+        const features = searchResults.data.map(result => createFeature(result))
 
 
         return {

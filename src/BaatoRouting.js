@@ -31,6 +31,11 @@ class BaatoRouting {
         return this
     }
 
+    getAlternatives () {
+      this.alternatives = true;
+      return this;
+    }
+
     addPoints(points) {
         this.points = points
         return this
@@ -38,10 +43,10 @@ class BaatoRouting {
 
     getBaseUrl() {
         if (this.alternatives) {
-            return `${this.baseUrl}/routes`
+            return `${this.baseUrl}/directions`
         }
 
-        return `${this.baseUrl}/routes`
+        return `${this.baseUrl}/directions`
     }
 
 
@@ -79,12 +84,15 @@ class BaatoRouting {
 
             const bUtil = new BaatoUtil()
 
+            console.log("response packe", response);
 
-            const finalData = response.data.length > 0 ? response.data.map(item => ({
+
+            const finalData = response.data.data.length > 0 ? response.data.data.map(item => ({
                 geojson: bUtil.getGeoJsonFromEncodedPolyLine(item.encoded_polyline),
                 distanceInKm: item.distanceInKm,
                 timeInMs: item.timeInMs,
             })) : []
+
 
             return finalData
 

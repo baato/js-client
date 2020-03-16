@@ -1,6 +1,6 @@
 {
-  "name": "js-client",
-  "version": "1.0.0",
+  "name": "@klltech/baato-js-client",
+  "version": "1.0.3",
   "description": "js-client",
   "main": "./src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "babel src -d build",
     "bundle": "npm run build && browserify build/index.js -o build/bundle.js"
   },
-  "author": "",
+  "author": "Kathmandu Living Labs",
   "license": "ISC",
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
@@ -16,5 +16,9 @@
   },
   "dependencies": {
     "axios": "^0.19.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://code.kathmandulivinglabs.org/osm-search/js-client.git"
   }
 }
