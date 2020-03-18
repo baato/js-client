@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-class BaatoSearch {
+class AutoComplete {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
@@ -23,28 +23,21 @@ class BaatoSearch {
         return this
     }
 
-    setPlaceId(placeId) {
-      this.placeId = placeId
-      return this
-    }
-
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(`${this.baseUrl}/search`, {
+            return axios.get(`${this.baseUrl}/autocomplete`, {
                 params: {
                     key: this.key,
                     q: this.query,
-                    placeId: this.placeId
                 },
             })
                 .then(response => response.data)
 
             // return fetch(this.getBaseUrl())
         }
-
         return null
     }
 }
 
 
-export default BaatoSearch
+export default AutoComplete

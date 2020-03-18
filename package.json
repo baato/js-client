@@ -19,6 +19,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://code.kathmandulivinglabs.org/osm-search/js-client.git"
+    "url": "git@code.kathmandulivinglabs.org:osm-search/js-client.git"
   }
 }
