@@ -19,11 +19,26 @@ $ npm install --save @klltech/baato-js-client
 
 ## Features
 
+* Autocomplete
 * Forward Geocoding
 * Reverse Geocoding
-* Navigation
+* Direction
 
 ## Usage Example
+
+#### Autocomplete
+
+```js
+import Baato from '@klltech/baato-js-client';
+
+const autocomplete = new Baato.AutoComplete()
+        .setKey('YOUR BAATO TOKEN')
+        .setQuery(queryText)
+        .doRequest().then(res => {
+          // response here
+          console.log(res)
+        })
+```
 
 #### Forward Geocoding
 
@@ -32,13 +47,25 @@ import Baato from '@klltech/baato-js-client';
 
 const search = new Baato.Search()
         .setQuery('Kathmandu')
-        .setKey(
-          'YOUR BAATO TOKEN',
-        )
+        .setKey('YOUR BAATO TOKEN')
         .doRequest().then(res => {
           // response here
           console.log(res)
         })
+```
+
+Alternatively, the forward geocoding service is also designed to be used in conjunction with the Autocomplete API, so providing a `placeId` from response received in the Autocomplete API is also supported.
+
+```js
+import Baato from '@klltech/baato-js-client';
+
+const searchPlaceId = new Baato.Search()
+      .setPlaceId(placeId)
+      .setKey('YOUR BAATO TOKEN')
+      .doRequest().then(res => {
+        // response here
+        console.log(res)
+      })
 ```
 
 #### Reverse Geocoding
@@ -49,9 +76,7 @@ import Baato from '@klltech/baato-js-client';
 const reverse = new Baato.Reverse()
        .setLat(27.7172)
        .setLon(85.3240)
-       .setKey(
-         'YOUR BAATO TOKEN',
-       )
+       .setKey('YOUR BAATO TOKEN')
        .doRequest()
        .then(res => {
           // response here
@@ -59,14 +84,13 @@ const reverse = new Baato.Reverse()
         });
 ```
 
-#### Navigation
+#### Direction
 
 ```js
 import Baato from '@klltech/baato-js-client';
 
 const bRouting = new Baato.Routing({
-        key:
-          'YOUR BAATO TOKEN',
+        key: 'YOUR BAATO TOKEN',
       });
       bRouting
         .addPoints(points)
