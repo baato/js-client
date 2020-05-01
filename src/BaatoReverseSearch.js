@@ -8,7 +8,7 @@ class BaatoReverseSearch {
         this.lat = props && props.lat ? props.lat : null
         this.lon = props && props.lon ? props.lon : null
         this.radius = props && props.radius ? props.radius : 0.5 // based on spring-boot API design, quick hack
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://178.128.59.143/api/v1'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api/v2'
     }
 
     setKey(key) {

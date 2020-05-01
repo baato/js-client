@@ -5,7 +5,7 @@ class BaatoSearch {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://178.128.59.143/api/v1'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api/v2'
     }
 
     setKey(key) {
