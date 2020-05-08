@@ -5,12 +5,17 @@ class AutoComplete {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api/v2'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 
     setKey(key) {
         this.key = key
         return this
+    }
+
+    setApiVersion(version) {
+        this.apiVersion = version
     }
 
     setQuery(query) {
@@ -29,6 +34,9 @@ class AutoComplete {
                 params: {
                     key: this.key,
                     q: this.query,
+                },
+                headers: {
+                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
                 },
             })
                 .then(response => response.data)

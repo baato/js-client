@@ -2,17 +2,18 @@ import axios from 'axios'
 import BaatoUtil from './BaatoUtil'
 
 class BaatoRouting {
-    constructor({ key, vehicle, baseUrl }) {
+    constructor({
+        key, vehicle, baseUrl, apiVersion,
+    }) {
         this.alternatives = false
-
         this.instructions = false
-
         this.points = []
 
 
         this.key = key
         this.vehicle = vehicle
-        this.baseUrl = baseUrl || 'http://baato.io/api/v2'
+        this.baseUrl = baseUrl || 'http://baato.io/api'
+        this.apiVersion = apiVersion || '1'
     }
 
     setBaseUrl(url) {
@@ -20,6 +21,9 @@ class BaatoRouting {
         return this
     }
 
+    setApiVersion(version) {
+        this.apiVersion = version
+    }
 
     setVehicle(vehicle) {
         this.vehicle = vehicle
@@ -31,9 +35,9 @@ class BaatoRouting {
         return this
     }
 
-    getAlternatives () {
-      this.alternatives = true;
-      return this;
+    getAlternatives() {
+        this.alternatives = true
+        return this
     }
 
     addPoints(points) {
@@ -79,12 +83,13 @@ class BaatoRouting {
                     mode: this.vehicle,
                     alternatives: this.alternatives,
                 },
+                headers: {
+                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
+                },
             })
 
 
             const bUtil = new BaatoUtil()
-
-            console.log("response packe", response);
 
 
             const finalData = response.data.data.length > 0 ? response.data.data.map(item => ({
