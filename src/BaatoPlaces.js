@@ -1,10 +1,8 @@
 import axios from 'axios'
 
-
-class AutoComplete {
+class BaatoSearch {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
-        this.query = props && props.query ? props.query : 'YOURQUERY'
         this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
@@ -14,12 +12,8 @@ class AutoComplete {
         return this
     }
 
-    setApiVersion(version) {
-        this.apiVersion = version
-    }
-
-    setQuery(query) {
-        this.query = query
+    setApiVersion(apiVersion) {
+        this.apiVersion = apiVersion.match(/\d+/)[0]
         return this
     }
 
@@ -28,24 +22,27 @@ class AutoComplete {
         return this
     }
 
+    setPlaceId(placeId) {
+        this.placeId = placeId
+        return this
+    }
+
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(`${this.baseUrl}/autocomplete`, {
+            return axios.get(`${this.baseUrl}/v${this.apiVersion}/places`, {
                 params: {
                     key: this.key,
-                    q: this.query,
-                },
-                headers: {
-                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
-                },
+                    placeId: this.placeId,
+                },                
             })
                 .then(response => response.data)
 
             // return fetch(this.getBaseUrl())
         }
+
         return null
     }
 }
 
 
-export default AutoComplete
+export default BaatoSearch

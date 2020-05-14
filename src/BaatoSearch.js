@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-class BaatoSearch {
+class Search {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
@@ -14,8 +14,9 @@ class BaatoSearch {
         return this
     }
 
-    setApiVersion(version) {
-        this.apiVersion = version
+    setApiVersion(apiVersion) {
+        this.apiVersion = apiVersion.match(/\d+/)[0]
+        return this
     }
 
     setQuery(query) {
@@ -28,31 +29,21 @@ class BaatoSearch {
         return this
     }
 
-    setPlaceId(placeId) {
-        this.placeId = placeId
-        return this
-    }
-
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(`${this.baseUrl}/search`, {
+            return axios.get(`${this.baseUrl}/v${this.apiVersion}/search`, {
                 params: {
                     key: this.key,
                     q: this.query,
-                    placeId: this.placeId,
-                },
-                headers: {
-                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
                 },
             })
                 .then(response => response.data)
 
             // return fetch(this.getBaseUrl())
         }
-
         return null
     }
 }
 
 
-export default BaatoSearch
+export default Search

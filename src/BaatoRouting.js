@@ -21,8 +21,9 @@ class BaatoRouting {
         return this
     }
 
-    setApiVersion(version) {
-        this.apiVersion = version
+    setApiVersion(apiVersion) {
+        this.apiVersion = apiVersion.match(/\d+/)[0]
+        return this
     }
 
     setVehicle(vehicle) {
@@ -88,16 +89,13 @@ class BaatoRouting {
                 },
             })
 
-
             const bUtil = new BaatoUtil()
 
-
-            const finalData = response.data.data.length > 0 ? response.data.data.map(item => ({
+            const finalData = response.data.length > 0 ? response.data.map(item => ({
                 geojson: bUtil.getGeoJsonFromEncodedPolyLine(item.encodedPolyline),
                 distanceInMeters: item.distanceInMeters,
                 timeInMs: item.timeInMs,
             })) : []
-
 
             return finalData
 

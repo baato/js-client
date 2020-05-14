@@ -17,8 +17,9 @@ class BaatoReverseSearch {
         return this
     }
 
-    setApiVersion(version) {
-        this.apiVersion = version
+    setApiVersion(apiVersion) {
+        this.apiVersion = apiVersion.match(/\d+/)[0]
+        return this
     }
 
     setLat(lat) {
@@ -30,7 +31,6 @@ class BaatoReverseSearch {
         this.lon = lon
         return this
     }
-
 
     setRadius(radius) {
         this.radius = radius
@@ -45,15 +45,12 @@ class BaatoReverseSearch {
 
     async doRequest() {
         if (this.key !== null) {
-            return axios.get(`${this.baseUrl}/reverse`, {
+            return axios.get(`${this.baseUrl}/v${this.apiVersion}/reverse`, {
                 params: {
                     key: this.key,
                     lat: this.lat,
                     lon: this.lon,
                     radius: this.radius,
-                },
-                headers: {
-                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
                 },
             })
                 .then(response => response.data)

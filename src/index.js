@@ -1,15 +1,15 @@
 import BaatoRouting from './BaatoRouting'
 import BaatoUtil from './BaatoUtil'
-import BaatoSearch from './BaatoSearch'
+import BaatoPlaces from './BaatoPlaces'
 import BaatoReverseSearch from './BaatoReverseSearch'
-import AutoComplete from './AutoComplete'
+import BaatoSearch from './BaatoSearch'
 
 const Baato = {
     Routing: BaatoRouting,
     Util: BaatoUtil,
-    Search: BaatoSearch,
+    Places: BaatoPlaces,
     Reverse: BaatoReverseSearch,
-    AutoComplete: AutoComplete
+    Search: BaatoSearch,
 }
 
 
