@@ -19,14 +19,16 @@ $ npm install --save @klltech/baato-js-client
 
 ## Features
 
-* Search API
-* Reverse Search API
-* Places API
-* Directions API
+The Baato Javascript library makes it easy to consume the [Baato API](http://baato.io) into existing web-based front-end projects. This package acts as a wrapper for the following Baato services: 
 
-## Usage Example
+* [Search API](http://baato.io:8081/#/v1/services/search)
+* [Reverse Search API](http://baato.io:8081/#/v1/services/reverse)
+* [Places API](http://baato.io:8081/#/v1/services/places)
+* [Directions API](http://baato.io:8081/#/v1/services/directions)
 
-#### Search API
+## Usage
+
+### Search API
 
 The `Baato.Search()` constructor can be used to make requests to the Search API.
 
@@ -34,9 +36,9 @@ The `Baato.Search()` constructor can be used to make requests to the Search API.
 import Baato from "@klltech/baato-js-client";
 
 const search = new Baato.Search()
-  .setApiVersion("1") // default
-  .setQuery("bal")
   .setKey("YOUR_BAATO_ACCESS_TOKEN")
+  .setApiVersion("1") // default
+  .setQuery("kathmandu")
   .doRequest()
   .then(response => {
     console.log(response); // search response
@@ -44,7 +46,7 @@ const search = new Baato.Search()
 
 ```
 
-#### Reverse Search API
+### Reverse Search API
 
 The `Baato.Reverse()` constructor can be used to make requests to the Reverse Search API.
 
@@ -52,10 +54,10 @@ The `Baato.Reverse()` constructor can be used to make requests to the Reverse Se
 import Baato from "@klltech/baato-js-client";
 
 const reverse = new Baato.Reverse()
+  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .setApiVersion("1")  // default
   .setLat(27.7172)
   .setLon(85.324)
-  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .doRequest()
   .then(res => {
     console.log(res); // reverse-search response
@@ -63,7 +65,7 @@ const reverse = new Baato.Reverse()
 
 ```
 
-#### Places API
+### Places API
 
 The `Baato.Place()` constructor can be used to make requests to the Places API.
 
@@ -71,9 +73,9 @@ The `Baato.Place()` constructor can be used to make requests to the Places API.
 import Baato from "@klltech/baato-js-client";
 
 const search = new Baato.Places()
+  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .setApiVersion("1.0") // default
   .setPlaceId("110023")
-  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .doRequest()
   .then(response => {
     console.log(response); // place response
@@ -81,8 +83,10 @@ const search = new Baato.Places()
 
 ```
 
-#### Directions API
+### Directions API
 
+
+For getting single best route.
 ```js
 import Baato from "@klltech/baato-js-client";
 
@@ -93,7 +97,7 @@ const bRouting = new Baato.Routing({
 })
   .setApiVersion("1.0")  // default
   .addPoints(points)
-  .setVehicle(vehicle)
+  .setMode("car") // one of car. bike, or foot
   .getBest()
   .doRequest()
   .then(response => {
@@ -102,7 +106,27 @@ const bRouting = new Baato.Routing({
 
 ```
 
-## Converting into GeoJSON
+For also including alternative routes. Only supports two points. Adding more than two points will return in an error response. 
+```js
+import Baato from "@klltech/baato-js-client";
+
+const points = ["27.71772,85.32784", "27.73449,85.33714"];
+
+const bRouting = new Baato.Routing({
+  key: "YOUR_BAATO_ACCESS_TOKEN"
+})
+  .setApiVersion("1.0")  // default
+  .addPoints(points) 
+  .setMode("car") // one of car. bike, or foot
+  .getAlternatives()
+  .doRequest()
+  .then(response => {
+    console.log(response); // directions response
+  });
+
+```
+
+### Converting into GeoJSON
 To get the results in GeoJSON format, use one of our utilities `Baato.Util().getGeoJsonFromSearchResults(res)` and pass the response as argument from one of the above features.
 
 ```js
