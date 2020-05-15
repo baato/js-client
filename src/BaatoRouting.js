@@ -77,15 +77,12 @@ class BaatoRouting {
 
     async doRequest() {
         if (this.key !== null) {
-            const response = await axios.get(this.getBaseUrl(), {
+            const response = await axios.get(`${this.baseUrl}/v${this.apiVersion}/directions`, {
                 params: {
                     points: this.points,
                     key: this.key,
                     mode: this.vehicle,
                     alternatives: this.alternatives,
-                },
-                headers: {
-                    Accept: `application/vnd.baato.api.v${this.apiVersion}+json`,
                 },
             })
 
