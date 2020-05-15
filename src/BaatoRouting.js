@@ -86,9 +86,9 @@ class BaatoRouting {
                 },
             })
 
-            const bUtil = new BaatoUtil()
+            const bUtil = new BaatoUtil()            
 
-            const finalData = response.data.length > 0 ? response.data.map(item => ({
+            const finalData = response.data.data.length > 0 ? response.data.data.map(item => ({
                 geojson: bUtil.getGeoJsonFromEncodedPolyLine(item.encodedPolyline),
                 distanceInMeters: item.distanceInMeters,
                 timeInMs: item.timeInMs,
