@@ -12,5 +12,4 @@ const Baato = {
     Search: BaatoSearch,
 }
 
-
 export default Baato;

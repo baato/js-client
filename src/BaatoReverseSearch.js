@@ -4,9 +4,7 @@ class BaatoReverseSearch {
     constructor(
         props,
     ) {
-        this.key = props && props.key ? props.key : 'YOURQUERY'
-        this.lat = props && props.lat ? props.lat : null
-        this.lon = props && props.lon ? props.lon : null
+        this.key = props && props.key ? props.key : 'YOURQUERY'        
         this.radius = props && props.radius ? props.radius : 0.5 // based on spring-boot API design
         this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
@@ -22,15 +20,21 @@ class BaatoReverseSearch {
         return this
     }
 
-    setLat(lat) {
-        this.lat = lat
-        return this
+    setCoordinates(coordinates) {
+      this.lat = coordinates[0];
+      this.lon = coordinates[1];
+      return this;
     }
 
-    setLon(lon) {
-        this.lon = lon
-        return this
-    }
+    // setLat(lat) {
+    //     this.lat = lat
+    //     return this
+    // }
+    //
+    // setLon(lon) {
+    //     this.lon = lon
+    //     return this
+    // }
 
     setRadius(radius) {
         this.radius = radius

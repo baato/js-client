@@ -29,12 +29,28 @@ class Search {
         return this
     }
 
+    setLimit(limit) {
+      this.limit = limit
+      return this
+    }
+
+    setCoordinates(coordinates, radius) {
+      this.lat = coordinates[0]
+      this.lon = coordinates[1]
+      this.radius = radius
+      return this
+    }
+
     async doRequest() {
         if (this.key !== null) {
             return axios.get(`${this.baseUrl}/v${this.apiVersion}/search`, {
                 params: {
                     key: this.key,
                     q: this.query,
+                    limit: this.limit,
+                    lat: this.lat,
+                    lon: this.lon,
+                    radius: this.radius,
                 },
             })
                 .then(response => response.data)
