@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation API</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="map"
+      style="position: absolute; top: 0; bottom: 0; width: 100%;"
+    ></div>
+    <script src="bundle.js"></script>
+    <script>
+      var map = new mapboxgl.Map({
+        container: "map",
+        style:
+          "https://api.baato.io/api/v1/styles/breeze?key=bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE", // Baato stylesheet location
+        center: [85.31853583740946, 27.701739466949107], // starting position [lng, lat]
+        zoom: 14, // starting zoom
+      });
+
+      new Baato.default.Routing({
+        key: "bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE",
+      })
+        .addPoints([
+          "27.695007971417382,85.30786383056528",
+          "27.706710946667044,85.33378469848509",
+        ]) // points for which routing is to be done
+        .setVehicle("foot") // means of transporation
+        .getBest()
+        .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
+        .doRequest()
+        .then((response) => {
+          response.forEach((item) => {
+            map.addSource("route", {
+              type: "geojson",
+              data: {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "LineString",
+                  coordinates: item.geojson.coordinates,
+                },
+              },
+            });
+            map.addLayer({
+              id: "route",
+              type: "line",
+              source: "route",
+              layout: {
+                "line-join": "round",
+                "line-cap": "round",
+              },
+              paint: {
+                "line-color": "#008148",
+                "line-width": 8,
+              },
+            });
+          });
+        });
+    </script>
+  </body>
+</html>

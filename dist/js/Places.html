@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Places API</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map" style="position: absolute; top: 0; bottom: 0; width: 100%;">
+      <div>
+        <div style="position: absolute; top: 10px; left: 10px; z-index: 1;">
+          <div
+            style="
+              position: relative;
+              width: 200px;
+              height: 25px;
+              border: 0;
+              padding: 0;
+              margin: 0;
+            "
+          >
+            <input
+              type="text"
+              oninput="search(this.value)"
+              placeholder="Search for a place..."
+            />
+            <select
+              id="text_editors-select"
+              autocomplete="nope"
+              style="width: 185px; display: block;"
+              onChange="searchByPlaceId(this.value)"
+            >
+              <option value="Atom">Suggestions: </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+    <script>
+      var markers = [];
+
+      var map = new mapboxgl.Map({
+        container: "map",
+        style:
+          "https://api.baato.io/api/v1/styles/breeze?key=bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE", // Baato stylesheet location
+        center: [85.324, 27.7172], // starting position [lng, lat]
+        zoom: 12, // starting zoom
+      });
+
+      function search(query) {
+        const search = new Baato.default.Search()
+          .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
+          .setKey("bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE") // Baato access token
+          .setQuery(query)
+          .setLimit(5)
+          .doRequest()
+          .then((res) => {
+            var select = document.getElementById("text_editors-select");
+            var length = select.options.length;
+            for (i = length - 1; i >= 0; i--) {
+              select.options[i] = null;
+            }
+            for (var i in res.data) {
+              select.add(new Option(res.data[i].name, res.data[i].placeId));
+            }
+            document.getElementById("text_editors-select").size = 5;
+          });
+      }
+
+      function clearMarkers() {
+        markers.forEach((marker) => marker.remove());
+        markers = [];
+      }
+
+      function searchByPlaceId(placeId) {        
+        new Baato.default.Places()
+          .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
+          .setPlaceId(placeId) // PlaceId for the place to search
+          .setKey("bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE") // your Baato access key
+          .doRequest()
+          .then((res) => {
+            clearMarkers();
+            var marker = new mapboxgl.Marker()
+              .setLngLat([res.data[0].centroid.lon, res.data[0].centroid.lat]) // setting latitude and longtitude for marker
+              .addTo(map);
+            markers.push(marker);
+          });
+      }
+    </script>
+  </body>
+</html>
