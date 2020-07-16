@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reverse Search API</title>
+    <title>Baato - Reverse Search API</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
@@ -38,13 +38,13 @@
     >
       Click anywhere on the map.
     </div>
-    <script src="bundle.js"></script>
+    <script src="https://sgp1.digitaloceanspaces.com/baatocdn/baato-0.0.1.js"></script>
     <script>
       var markers = [];
       var map = new mapboxgl.Map({
         container: "map",
         style:
-          "https://api.baato.io/api/v1/styles/breeze?key=bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE", // Baato stylesheet location
+          "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
         center: [85.324, 27.7172], // starting position [lng, lat]
         zoom: 13, // starting zoom
       });
@@ -53,7 +53,7 @@
         new Baato.default.Reverse()
           .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
           .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
-          .setKey("bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE") // Baato access token
+          .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
           .setRadius(0.2)
           .doRequest()
           .then((res) => {
