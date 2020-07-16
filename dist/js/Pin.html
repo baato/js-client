@@ -31,10 +31,7 @@
     <script>
       // TO MAKE THE MAP APPEAR YOU MUST
       // ADD YOUR ACCESS TOKEN FROM
-      // https://account.mapbox.com
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiaGVsbmVyc2hpbmd0aGFwYSIsImEiOiJjazc1cW1uaXkwanVoM2VyeWU3emUyMm0wIn0.Ulemzd1lMM2O6nEfk91bmw";
-      var places = {
+      var pin = {
         type: "FeatureCollection",
         features: [
           {
@@ -53,16 +50,16 @@
       var map = new mapboxgl.Map({
         container: "map",
         style:
-          "https://api.baato.io/api/v1/styles/breeze?key=bpk.vEXF2Aj-xkyk-xBSu2Z_w1N8JFss7z-Dzxygnj9I0vBE", // Baato stylesheet location
+          "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
         center: [85.3367202, 27.7340428],
         zoom: 16.5,
       });
 
       map.on("load", function () {
         // Add a GeoJSON source containing place coordinates and information.
-        map.addSource("places", {
+        map.addSource("pin", {
           type: "geojson",
-          data: places,
+          data: pin,
         });
 
         var marker = new mapboxgl.Marker()
@@ -70,9 +67,9 @@
           .addTo(map);
 
         map.addLayer({
-          id: "poi-labels",
+          id: "pin-label",
           type: "symbol",
-          source: "places",
+          source: "pin",
           layout: {
             "text-field": ["get", "description"],
             'text-font': ['RobotoBold'],
