@@ -32,45 +32,48 @@
         zoom: 14, // starting zoom
       });
 
-      new Baato.default.Routing({
-        key: "YOUR_BAATO_ACCESS_TOKEN",
-      })
-        .addPoints([
-          "27.695007971417382,85.30786383056528",
-          "27.706710946667044,85.33378469848509",
-        ]) // points for which routing is to be done
-        .setVehicle("foot") // means of transporation
-        .getBest()
-        .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
-        .doRequest()
-        .then((response) => {
-          response.forEach((item) => {
-            map.addSource("route", {
-              type: "geojson",
-              data: {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "LineString",
-                  coordinates: item.geojson.coordinates,
+          map.on('load', function() {
+
+        new Baato.default.Routing({
+          key: "bpk.whkzK2b4MgeI9s7l-Y9izy11aE6j5sQzd-GrkYzMpkKS",
+        })
+          .addPoints([
+            "27.695007971417382,85.30786383056528",
+            "27.706710946667044,85.33378469848509",
+          ]) // points for which routing is to be done
+          .setVehicle("foot") // means of transporation
+          .getBest()
+          .setBaseUrl(`https://api-staging.baato.io/api`) // Baato base URL
+          .doRequest()
+          .then((response) => {
+            response.forEach((item) => {
+              map.addSource("route", {
+                type: "geojson",
+                data: {
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    type: "LineString",
+                    coordinates: item.geojson.coordinates,
+                  },
                 },
-              },
-            });
-            map.addLayer({
-              id: "route",
-              type: "line",
-              source: "route",
-              layout: {
-                "line-join": "round",
-                "line-cap": "round",
-              },
-              paint: {
-                "line-color": "#008148",
-                "line-width": 8,
-              },
+              });
+              map.addLayer({
+                id: "route",
+                type: "line",
+                source: "route",
+                layout: {
+                  "line-join": "round",
+                  "line-cap": "round",
+                },
+                paint: {
+                  "line-color": "#008148",
+                  "line-width": 8,
+                },
+              });
             });
           });
-        });
+      })
     </script>
   </body>
 </html>
