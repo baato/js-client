@@ -6,7 +6,7 @@ class BaatoReverseSearch {
     ) {
         this.key = props && props.key ? props.key : 'YOURQUERY'        
         this.radius = props && props.radius ? props.radius : 0.5 // based on spring-boot API design
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 

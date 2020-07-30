@@ -3,7 +3,7 @@ import axios from 'axios'
 class BaatoSearch {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 

@@ -1075,7 +1075,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 class BaatoSearch {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 
@@ -1135,7 +1135,7 @@ class BaatoReverseSearch {
     ) {
         this.key = props && props.key ? props.key : 'YOURQUERY'        
         this.radius = props && props.radius ? props.radius : 0.5 // based on spring-boot API design
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 
@@ -1221,7 +1221,7 @@ class BaatoRouting {
 
         this.key = key
         this.vehicle = vehicle
-        this.baseUrl = baseUrl || 'http://baato.io/api'
+        this.baseUrl = baseUrl || 'https://baato.io/api'
         this.apiVersion = apiVersion || '1'
     }
 
@@ -1329,7 +1329,7 @@ class Search {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 

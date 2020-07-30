@@ -12,7 +12,7 @@ class BaatoRouting {
 
         this.key = key
         this.vehicle = vehicle
-        this.baseUrl = baseUrl || 'http://baato.io/api'
+        this.baseUrl = baseUrl || 'https://baato.io/api'
         this.apiVersion = apiVersion || '1'
     }
 

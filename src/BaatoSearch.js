@@ -5,7 +5,7 @@ class Search {
     constructor(props) {
         this.key = props && props.key ? props.key : 'YOURAPIKEY'
         this.query = props && props.query ? props.query : 'YOURQUERY'
-        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'http://baato.io/api'
+        this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
     }
 
