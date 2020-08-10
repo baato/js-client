@@ -1,4 +1,4 @@
-<h1>klltech/baato-js-client</h1>
+<h1>@klltech/baato-js-client</h1>
 
 <p>
   <a href="https://www.npmjs.com/package/@klltech/baato-js-client" target="_blank">
