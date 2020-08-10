@@ -4,14 +4,16 @@
   "description": "js-client",
   "main": "./dist/bundle.js",
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "rimraf ./dist && webpack --env production"
   },
   "author": "Kathmandu Living Labs Consult",
   "license": "ISC",
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "eslint": "^6.8.0",
-    "webpack": "^2.2.0-rc.3"
+    "rimraf": "^3.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "axios": "^0.19.2"
