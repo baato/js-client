@@ -38,7 +38,7 @@
     >
       Click anywhere on the map.
     </div>
-    <script src="https://sgp1.digitaloceanspaces.com/baatocdn/baato-0.0.1.js"></script>
+    <script src="https://www.unpkg.com/@klltech/baato-js-client@1.1.1/dist/bundle.js"></script>
     <script>
       var markers = [];
       var map = new mapboxgl.Map({
@@ -50,7 +50,7 @@
       });
 
       map.on("click", (e) => {
-        new Baato.default.Reverse()
+        new Baato.Reverse()
           .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
           .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
           .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
