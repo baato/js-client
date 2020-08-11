@@ -136,13 +136,3 @@ To get the results in GeoJSON format, use one of our utilities `Baato.Util().get
 const geojson = new Baato.Util().getGeoJsonFromSearchResults(res);
 ```
 
-## Author
-
-👤 **Kathmandu Living Labs**
-
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
