@@ -1,30 +1,32 @@
-<h1>klltech/baato-js-client</h1>
+<h1>@klltech/baato-js-client</h1>
+
 <p>
   <a href="https://www.npmjs.com/package/@klltech/baato-js-client" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/@klltech/baato-js-client.svg">
   </a>
   <a href="#" target="_blank">
-    <img alt="License: ISC" src="https://img.shields.io/badge/License-ISC-yellow.svg" />
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" />
   </a>
 </p>
 
-> npm package for http://baato.io/
+> Client library for easily integrating [Baato.io](http://baato.io/)'s services into your project
 
 ## Installation
 
 Using npm:
+
 ```sh
 $ npm install --save @klltech/baato-js-client
 ```
 
 ## Features
 
-The Baato Javascript library makes it easy to consume the [Baato API](http://baato.io) into existing web-based front-end projects. This package acts as a wrapper for the following Baato services: 
+The Baato JavaScript client library makes it easy to integrate the [Baato API](https://baato.io) into existing web-based front-end projects. This package acts as a wrapper for the following Baato services: 
 
-* [Search API](http://baato.io:8081/#/v1/services/search)
-* [Reverse Search API](http://baato.io:8081/#/v1/services/reverse)
-* [Places API](http://baato.io:8081/#/v1/services/places)
-* [Directions API](http://baato.io:8081/#/v1/services/directions)
+* [Search API](https://docs.baato.io/#/v1/services/search)
+* [Reverse Search API](https://docs.baato.io/#/v1/services/reverse)
+* [Places API](https://docs.baato.io/#/v1/services/places)
+* [Directions API](https://docs.baato.io/#/v1/services/directions)
 
 ## Usage
 
@@ -67,7 +69,7 @@ const reverse = new Baato.Reverse()
 
 ### Places API
 
-The `Baato.Place()` constructor can be used to make requests to the Places API.
+The `Baato.Places()` constructor can be used to make requests to the Places API.
 
 ```js
 import Baato from "@klltech/baato-js-client";
