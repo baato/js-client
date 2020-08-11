@@ -1,84 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Baato - Pin Example</title>
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
+    <head>
+        <meta charset="utf-8" />
+        <title>Baato - Pin Example</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
 
-    <script>
-      // TO MAKE THE MAP APPEAR YOU MUST
-      // ADD YOUR ACCESS TOKEN FROM
-      var pin = {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            properties: {
-              description: "Kathmandu Living Labs",
-            },
-            geometry: {
-              type: "Point",
-              coordinates: [85.3367202, 27.7340428],
-            },
-          },
-        ],
-      };
+        <script>
+            // TO MAKE THE MAP APPEAR YOU MUST
+            // ADD YOUR ACCESS TOKEN FROM
+            var pin = {
+                type: "FeatureCollection",
+                features: [
+                    {
+                        type: "Feature",
+                        properties: {
+                            description: "Kathmandu Living Labs",
+                        },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [85.3367202, 27.7340428],
+                        },
+                    },
+                ],
+            };
 
-      var map = new mapboxgl.Map({
-        container: "map",
-        style:
-          "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
-        center: [85.3367202, 27.7340428],
-        zoom: 16.5,
-      });
+            var map = new mapboxgl.Map({
+                container: "map",
+                style: "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
+                center: [85.3367202, 27.7340428],
+                zoom: 16.5,
+            });
 
-      map.on("load", function () {
-        // Add a GeoJSON source containing place coordinates and information.
-        map.addSource("pin", {
-          type: "geojson",
-          data: pin,
-        });
+            map.on("load", function () {
+                // Add a GeoJSON source containing place coordinates and information.
+                map.addSource("pin", {
+                    type: "geojson",
+                    data: pin,
+                });
 
-        var marker = new mapboxgl.Marker()
-          .setLngLat([85.3367202, 27.7340428])
-          .addTo(map);
+                var marker = new mapboxgl.Marker().setLngLat([85.3367202, 27.7340428]).addTo(map);
 
-        map.addLayer({
-          id: "pin-label",
-          type: "symbol",
-          source: "pin",
-          layout: {
-            "text-field": ["get", "description"],
-            'text-font': ['RobotoBold'],
-            "text-variable-anchor": ["top","bottom","right","left"],
-            "text-radial-offset": 0.8,
-            'text-anchor': 'top'
-          },
-        });
-      });
-    </script>
-  </body>
+                map.addLayer({
+                    id: "pin-label",
+                    type: "symbol",
+                    source: "pin",
+                    layout: {
+                        "text-field": ["get", "description"],
+                        "text-font": ["RobotoBold"],
+                        "text-variable-anchor": ["top", "bottom", "right", "left"],
+                        "text-radial-offset": 0.8,
+                        "text-anchor": "top",
+                    },
+                });
+            });
+        </script>
+    </body>
 </html>
