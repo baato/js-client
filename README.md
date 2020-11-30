@@ -21,7 +21,7 @@ $ npm install --save @klltech/baato-js-client
 
 ## Features
 
-The Baato JavaScript client library makes it easy to integrate the [Baato API](https://baato.io) into existing web-based front-end projects. This package acts as a wrapper for the following Baato services: 
+The Baato JavaScript client library makes it easy to integrate the [Baato API](https://baato.io) into existing web-based front-end projects. This package acts as a wrapper for the following Baato services:
 
 * [Search API](https://docs.baato.io/#/v1/services/search)
 * [Reverse Search API](https://docs.baato.io/#/v1/services/reverse)
@@ -58,8 +58,7 @@ import Baato from "@klltech/baato-js-client";
 const reverse = new Baato.Reverse()
   .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .setApiVersion("1")  // default
-  .setLat(27.7172)
-  .setLon(85.324)
+  .setCoordinates([latitude, longitude]) // coordinates to reverse geocode
   .doRequest()
   .then(res => {
     console.log(res); // reverse-search response
@@ -98,17 +97,16 @@ const bRouting = new Baato.Routing({
   key: "YOUR_BAATO_ACCESS_TOKEN"
 })
   .setApiVersion("1.0")  // default
-  .addPoints(points)
-  .setMode("car") // one of car. bike, or foot
+  .addPoints(points) // points for which route is to be calculated
+  .setVehicle("car") // one of car, bike, or foot
   .getBest()
   .doRequest()
   .then(response => {
     console.log(response); // directions response
   });
-
 ```
 
-For also including alternative routes. Only supports two points. Adding more than two points will return in an error response. 
+For also including alternative routes. Only supports two points. Adding more than two points will return in an error response.
 ```js
 import Baato from "@klltech/baato-js-client";
 
@@ -118,8 +116,8 @@ const bRouting = new Baato.Routing({
   key: "YOUR_BAATO_ACCESS_TOKEN"
 })
   .setApiVersion("1.0")  // default
-  .addPoints(points) 
-  .setMode("car") // one of car. bike, or foot
+  .addPoints(points)
+  .setVehicle("car") // one of car. bike, or foot
   .getAlternatives()
   .doRequest()
   .then(response => {
@@ -135,4 +133,3 @@ To get the results in GeoJSON format, use one of our utilities `Baato.Util().get
 // res is the response
 const geojson = new Baato.Util().getGeoJsonFromSearchResults(res);
 ```
-

@@ -41,7 +41,7 @@
             function search(query) {
                 const search = new Baato.Search()
                     .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
-                    .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
+                    .setKey('YOUR_BAATO_ACCESS_TOKEN') // Baato access token
                     .setQuery(query)
                     .setLimit(5)
                     .doRequest()
@@ -67,7 +67,7 @@
                 new Baato.Places()
                     .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
                     .setPlaceId(placeId) // PlaceId for the place to search
-                    .setKey("YOUR_BAATO_ACCESS_TOKEN") // your Baato access key
+                    .setKey('YOUR_BAATO_ACCESS_TOKEN') // your Baato access key
                     .doRequest()
                     .then((res) => {
                         clearMarkers();

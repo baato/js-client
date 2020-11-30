@@ -5,6 +5,6 @@ module.exports = {
     filename: "bundle.js",
     library: "Baato",
     libraryTarget: "umd",
-    libraryExport: "default"
+    libraryExport: "default",
   },
 };
