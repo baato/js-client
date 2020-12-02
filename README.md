@@ -38,9 +38,11 @@ The `Baato.Search()` constructor can be used to make requests to the Search API.
 import Baato from "@klltech/baato-js-client";
 
 const search = new Baato.Search()
+  .setApiVersion("1.0")  // default
+  .setBaseUrl(`https://api.baato.io/api`) // detault Baato base URL
   .setKey("YOUR_BAATO_ACCESS_TOKEN")
-  .setApiVersion("1") // default
-  .setQuery("kathmandu")
+  .setQuery("kathmandu") // string query to search for
+  .setLimit(5) // limit the number of responses
   .doRequest()
   .then(response => {
     console.log(response); // search response
@@ -56,9 +58,11 @@ The `Baato.Reverse()` constructor can be used to make requests to the Reverse Se
 import Baato from "@klltech/baato-js-client";
 
 const reverse = new Baato.Reverse()
+  .setApiVersion("1.0")  // default
+  .setBaseUrl(`https://api.baato.io/api`) // detault Baato base URL
   .setKey("YOUR_BAATO_ACCESS_TOKEN")
-  .setApiVersion("1")  // default
   .setCoordinates([latitude, longitude]) // coordinates to reverse geocode
+  .setLimit(5) // limit the number of responses  
   .doRequest()
   .then(res => {
     console.log(res); // reverse-search response
@@ -74,8 +78,9 @@ The `Baato.Places()` constructor can be used to make requests to the Places API.
 import Baato from "@klltech/baato-js-client";
 
 const search = new Baato.Places()
+  .setApiVersion("1.0")  // default
+  .setBaseUrl(`https://api.baato.io/api`) // detault Baato base URL
   .setKey("YOUR_BAATO_ACCESS_TOKEN")
-  .setApiVersion("1.0") // default
   .setPlaceId("110023")
   .doRequest()
   .then(response => {
@@ -97,6 +102,8 @@ const bRouting = new Baato.Routing({
   key: "YOUR_BAATO_ACCESS_TOKEN"
 })
   .setApiVersion("1.0")  // default
+  .setBaseUrl(`https://api.baato.io/api`) // detault Baato base URL
+  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .addPoints(points) // points for which route is to be calculated
   .setVehicle("car") // one of car, bike, or foot
   .getBest()
@@ -116,6 +123,8 @@ const bRouting = new Baato.Routing({
   key: "YOUR_BAATO_ACCESS_TOKEN"
 })
   .setApiVersion("1.0")  // default
+  .setBaseUrl(`https://api.baato.io/api`) // detault Baato base URL
+  .setKey("YOUR_BAATO_ACCESS_TOKEN")
   .addPoints(points)
   .setVehicle("car") // one of car. bike, or foot
   .getAlternatives()

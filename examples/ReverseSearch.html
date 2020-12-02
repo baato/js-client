@@ -34,7 +34,8 @@
                     .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
                     .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
                     .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
-                    .setRadius(0.2)
+                    .setRadius(0.2) // radius
+                    .setLimit(5) // limits the number of response
                     .doRequest()
                     .then((res) => {
                         clearMarkers();
