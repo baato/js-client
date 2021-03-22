@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Baato - Reverse Search API</title>
+        <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.13.0-rc.4/mapbox-gl.js"></script>
+        <link href="https://cdn.skypack.dev/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="map" style="position: absolute; top: 0; bottom: 0; width: 100%;"></div>
+        <div id="response" style="position: absolute; top: 10px; right: 10px; z-index: 1; width: 300px; border: 2px solid green; padding: 50px; margin: 10px; background: rgba(255, 255, 255, 0.75);">
+            Click anywhere on the map.
+        </div>
+        <script src="https://www.unpkg.com/@klltech/baato-js-client@1.1.1/dist/bundle.js"></script>
+        <script>
+            var markers = [];
+            var map = new mapboxgl.Map({
+                container: "map",
+                style: "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
+                center: [85.324, 27.7172], // starting position [lng, lat]
+                zoom: 13, // starting zoom
+            });
+
+            map.on("click", (e) => {
+                new Baato.Reverse()
+                    .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
+                    .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
+                    .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
+                    .setRadius(0.2) // radius
+                    .setLimit(5) // limits the number of response
+                    .doRequest()
+                    .then((res) => {
+                        clearMarkers();
+
+                        var marker = new mapboxgl.Marker()
+                            .setLngLat([res.data[0].centroid.lon, res.data[0].centroid.lat]) // adding marker for the response [lon, lat]
+                            .addTo(map);
+                        markers.push(marker);
+
+                        function clearMarkers() {
+                            markers.forEach((marker) => marker.remove());
+                            markers = [];
+                        }
+
+                        document.getElementById("response").innerHTML = "<b>" + res.data[0].name + "</b>" + "<br/><br/>" + "<b>" + "Address: " + "</b>" + res.data[0].address;
+                    });
+            });
+        </script>
+    </body>
+</html>
