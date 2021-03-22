@@ -21,7 +21,7 @@
         <div id="response" style="position: absolute; top: 10px; right: 10px; z-index: 1; width: 300px; border: 2px solid green; padding: 50px; margin: 10px; background: rgba(255, 255, 255, 0.75);">
             Click anywhere on the map.
         </div>
-        <script src="https://www.unpkg.com/@klltech/baato-js-client@1.1.1/dist/bundle.js"></script>
+        <script src="https://www.unpkg.com/@klltech/baato-js-client@1.2.0/dist/bundle.js"></script>
         <script>
             var markers = [];
             var map = new mapboxgl.Map({
@@ -36,16 +36,19 @@
                     .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
                     .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
                     .setKey("bpk.TqpOIK5KflKR_zEI0ONEVdCZmwmfMye9i67nAjsGlMgQ") // Baato access token
-                    .setRadius(0.2) // radius
-                    .setLimit(5) // limits the number of response
+                    .setRadius(0.05) // radius in Km (looks for nearest 50m, or else points to enarest neighbourhood)
                     .doRequest()
                     .then((res) => {
                         clearMarkers();
+
+
 
                         var marker = new mapboxgl.Marker()
                             .setLngLat([res.data[0].centroid.lon, res.data[0].centroid.lat]) // adding marker for the response [lon, lat]
                             .addTo(map);
                         markers.push(marker);
+
+
 
                         function clearMarkers() {
                             markers.forEach((marker) => marker.remove());
