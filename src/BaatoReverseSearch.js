@@ -29,6 +29,7 @@ class BaatoReverseSearch {
 
     setLimit(limit) {
         this.limit = String(limit)
+        return this
     }
 
 

@@ -15,7 +15,9 @@
     </head>
 
     <body>
-        <div id="map" style="position: absolute; top: 0; bottom: 0; width: 100%;"></div>
+        <div id="map" style="position: absolute; top: 0; bottom: 0; width: 100%;">
+            <div style="z-index: 10; padding: 0 5px;background-color: hsla(0,0%,100%,.5);margin: 0; position:absolute; bottom:0px; right: 0px"> © <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer no follow" target="_blank">OpenStreetMap contributors</a></div>
+            <div style="z-index: 100; padding: 0 5px;background-color: hsla(0,0%,100%,.5);margin: 0; position:absolute; bottom:0px; left: 0px"><a href="https://baato.io" rel="noopener noreferrer no follow" target="_blank"><img src="https://sgp1.digitaloceanspaces.com/baatocdn/images/BaatoLogo.svg" alt="Baato" width="80px"></img></a></div></div>
         <div id="response" style="position: absolute; top: 10px; right: 10px; z-index: 1; width: 300px; border: 2px solid green; padding: 50px; margin: 10px; background: rgba(255, 255, 255, 0.75);">
             Click anywhere on the map.
         </div>
@@ -24,7 +26,7 @@
             var markers = [];
             var map = new mapboxgl.Map({
                 container: "map",
-                style: "https://api.baato.io/api/v1/styles/breeze?key=YOUR_BAATO_ACCESS_TOKEN", // Baato stylesheet location
+                style: "https://api.baato.io/api/v1/styles/breeze?key=bpk.TqpOIK5KflKR_zEI0ONEVdCZmwmfMye9i67nAjsGlMgQ", // Baato stylesheet location
                 center: [85.324, 27.7172], // starting position [lng, lat]
                 zoom: 13, // starting zoom
             });
@@ -33,7 +35,7 @@
                 new Baato.Reverse()
                     .setBaseUrl(`https://api.baato.io/api`) // Baato base URL
                     .setCoordinates([e.lngLat.lat, e.lngLat.lng]) // [lng, lat] for reverse geocoding
-                    .setKey("YOUR_BAATO_ACCESS_TOKEN") // Baato access token
+                    .setKey("bpk.TqpOIK5KflKR_zEI0ONEVdCZmwmfMye9i67nAjsGlMgQ") // Baato access token
                     .setRadius(0.2) // radius
                     .setLimit(5) // limits the number of response
                     .doRequest()
