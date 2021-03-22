@@ -1,6 +1,6 @@
 {
   "name": "@klltech/baato-js-client",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "js-client",
   "main": "./dist/bundle.js",
   "scripts": {
