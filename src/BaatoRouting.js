@@ -1,106 +1,115 @@
-import axios from 'axios'
-import BaatoUtil from './BaatoUtil'
+/* eslint-disable semi */
+import axios from 'axios';
+import BaatoUtil from './BaatoUtil';
 
 class BaatoRouting {
-    constructor({
-        key, vehicle, baseUrl, apiVersion,
-    }) {
-        this.alternatives = false
-        this.instructions = false
-        this.points = []
-
-
-        this.key = key
-        this.vehicle = vehicle
-        this.baseUrl = baseUrl || 'https://api.baato.io/api'
-        this.apiVersion = apiVersion || '1'
+    constructor(props) {
+        this.baseUrl = (props && props.baseUrl) || 'https://api.baato.io/api';
+        this.apiVersion = (props && props.apiVersion) || '1';
+        this.key = (props && props.key) || 'YOURBAATOTOKEN';
+        this.alternatives = false;
+        this.instructions = false;
+        this.points = [];
+        this.vehicle = 'foot';
     }
 
     setBaseUrl(url) {
-        this.baseUrl = url
-        return this
+        this.baseUrl = url;
+        return this;
+    }
+
+    setKey(key) {
+        this.key = key;
+        return this;
     }
 
     setApiVersion(apiVersion) {
-        this.apiVersion = apiVersion.match(/\d+/)[0]
-        return this
+        this.apiVersion = apiVersion.match(/\d+/)[0];
+        return this;
     }
 
     setVehicle(vehicle) {
-        this.vehicle = vehicle
-        return this
+        this.vehicle = vehicle;
+        return this;
     }
 
     addPoint({ lat, lon }) {
-        this.points.push(`${lat},${lon}`)
-        return this
+        this.points.push(`${lat},${lon}`);
+        return this;
     }
 
-    getAlternatives() {
-        this.alternatives = true
-        return this
+    getAlternatives(bool) {
+        this.alternatives = bool;
+        return this;
     }
 
     addPoints(points) {
-        this.points = points
-        return this
+        this.points = points;
+        return this;
     }
 
     getBaseUrl() {
         if (this.alternatives) {
-            return `${this.baseUrl}/directions`
+            return `${this.baseUrl}/directions`;
         }
 
-        return `${this.baseUrl}/directions`
+        return `${this.baseUrl}/directions`;
     }
 
-
     getKey() {
-        return this.key
+        return this.key;
     }
 
     includeAlternativeRoutes() {
-        this.alternatives = true
-        return this
+        this.alternatives = true;
+        return this;
     }
 
     getBest() {
-        this.alternatives = false
-        return this
+        this.alternatives = false;
+        return this;
     }
 
-
     hasInstructions(bool) {
-        this.hasInstructions = bool
-        return this
+        this.instructions = bool;
+        return this;
     }
 
     async doRequest() {
         if (this.key !== null) {
-            const response = await axios.get(`${this.baseUrl}/v${this.apiVersion}/directions`, {
-                params: {
-                    points: this.points,
-                    key: this.key,
-                    mode: this.vehicle,
-                    alternatives: this.alternatives,
+            const response = await axios.get(
+                `${this.baseUrl}/v${this.apiVersion}/directions`,
+                {
+                    params: {
+                        points: this.points,
+                        key: this.key,
+                        mode: this.vehicle,
+                        alternatives: this.alternatives,
+                        instructions: this.instructions
+                    },
                 },
-            })
+            );
 
-            const bUtil = new BaatoUtil()            
+            const bUtil = new BaatoUtil();
 
-            const finalData = response.data.data.length > 0 ? response.data.data.map(item => ({
-                geojson: bUtil.getGeoJsonFromEncodedPolyLine(item.encodedPolyline),
-                distanceInMeters: item.distanceInMeters,
-                timeInMs: item.timeInMs,
-            })) : []
+            const finalData = response.data.data.length > 0
+                ? response.data.data.map(item => ({
+                    geojson: bUtil.getGeoJsonFromEncodedPolyLine(
+                        item.encodedPolyline,
+                    ),
+                    distanceInMeters: item.distanceInMeters,
+                    timeInMs: item.timeInMs,
+                    instructionList: item.instructionList,	
+                }))
+                : [];
 
-            return finalData
+            return finalData;
 
             // return fetch(this.getBaseUrl())
         }
 
-        return null
+        return null;
     }
 }
 
-export default BaatoRouting
+export default BaatoRouting;
