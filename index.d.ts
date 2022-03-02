@@ -6,14 +6,17 @@ declare namespace Baato {
       apiVersion?: string;
     };
   
+    abstract class Common<T> {
+      setKey(key: string): T;
+      setBaseUrl(url: string): T;
+      setApiVersion(version: string): T;
+    }
+  
     // Places API
     interface PlacesProps extends CommonConstructorProps {}
   
-    class Places {
+    class Places extends Common<Places> {
       constructor(props: PlacesProps);
-      setKey(key: string): Places;
-      setBaseUrl(url: string): Places;
-      setApiVersion(version: string): Places;
       setPlaceId(placeId: string): Places;
       doRequest: () => Promise<any> | null;
     }
@@ -42,12 +45,9 @@ declare namespace Baato {
       status: number;
     };
   
-    class Reverse {
+    class Reverse extends Common<Reverse> {
       constructor(props?: ReverseProps);
       setCoordinates(coordinates: [number, number]): Reverse;
-      setKey(key: string): Reverse;
-      setBaseUrl(url: string): Reverse;
-      setApiVersion(version: string): Reverse;
       setCoordinate(coordinate: GeoJSON.Position): Reverse;
       setRadius(radius: number): Reverse;
       setLimit(limit: number): Reverse;
@@ -64,11 +64,8 @@ declare namespace Baato {
       timeInMs: number;
     };
   
-    class Routing {
+    class Routing extends Common<Routing> {
       constructor(props: RoutingProps);
-      setBaseUrl(url: string): Routing;
-      setKey(key: string): Routing;
-      setApiVersion(version: string): Routing;
       setVehicle(vehicle: string): Routing;
       addPoint(point: GeoJSON.LatLon): Routing;
       getAlternatives(alternatives: boolean): Routing;
@@ -101,12 +98,9 @@ declare namespace Baato {
       status: number;
     };
   
-    class Search {
+    class Search extends Common<Search> {
       constructor(props?: SearchProps);
-      setKey(key: string): Search;
-      setBaseUrl(url: string): Search;
       setLimit(limit: number): Reverse;
-      setApiVersion(version: string): Search;
       setQuery(query: string): Search;
       setCoordinates(coordinate: GeoJSON.Position, radius: number): Search;
       doRequest: () => Promise<SearchResult> | null;
