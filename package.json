@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "description": "js-client",
   "main": "./dist/bundle.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "rimraf ./dist && webpack --mode=production"
   },
