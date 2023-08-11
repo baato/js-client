@@ -73,6 +73,7 @@ declare namespace Baato {
       getBaseUrl(): string;
       getKey(): string;
       includeAlternativeRoutes(): Routing;
+      getElevation(elevation:boolean):Routing;
       getBest(): Routing;
       hasInstructions(instructions: boolean): Routing;
       doRequest(): Promise<Array<RoutingResponse>> | null;

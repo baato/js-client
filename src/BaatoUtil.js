@@ -51,10 +51,10 @@ class BaatoUtil {
         return array
     }
 
-    getGeoJsonFromEncodedPolyLine(encoded) {
+    getGeoJsonFromEncodedPolyLine(encoded, is3D = false) {
         return {
             type: 'LineString',
-            coordinates: this.decodePath(encoded, false),
+            coordinates: this.decodePath(encoded, is3D),
         }
     }
 
