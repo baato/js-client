@@ -131,7 +131,7 @@ const bRouting = new Baato.Routing({
     console.log(response); // directions response
   });
 ```
-
+For elevation  add `getElevation()`.
 ### Converting into GeoJSON
 
 To get the results in GeoJSON format, use one of our utilities `Baato.Util().getGeoJsonFromSearchResults(res)` and pass the response as argument from one of the above features.

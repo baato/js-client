@@ -9,6 +9,7 @@ class BaatoRouting {
         this.key = (props && props.key) || 'YOURBAATOTOKEN';
         this.alternatives = false;
         this.instructions = false;
+        this.elevation = false;
         this.points = [];
         this.vehicle = 'foot';
     }
@@ -75,6 +76,11 @@ class BaatoRouting {
         return this;
     }
 
+    getElevation() {
+        this.elevation = true;
+        return this;
+    }
+
     async doRequest() {
         if (this.key !== null) {
             const response = await axios.get(
@@ -85,7 +91,8 @@ class BaatoRouting {
                         key: this.key,
                         mode: this.vehicle,
                         alternatives: this.alternatives,
-                        instructions: this.instructions
+                        instructions: this.instructions,
+                        elevation: this.elevation
                     },
                 },
             );
@@ -95,11 +102,11 @@ class BaatoRouting {
             const finalData = response.data.data.length > 0
                 ? response.data.data.map(item => ({
                     geojson: bUtil.getGeoJsonFromEncodedPolyLine(
-                        item.encodedPolyline,
+                        item.encodedPolyline, this.elevation
                     ),
                     distanceInMeters: item.distanceInMeters,
                     timeInMs: item.timeInMs,
-                    instructionList: item.instructionList,	
+                    instructionList: item.instructionList,
                 }))
                 : [];
 
@@ -111,5 +118,4 @@ class BaatoRouting {
         return null;
     }
 }
-
 export default BaatoRouting;
