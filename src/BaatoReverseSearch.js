@@ -9,6 +9,7 @@ class BaatoReverseSearch {
         this.baseUrl = props && props.baseUrl ? props.baseUrl : 'https://api.baato.io/api'
         this.apiVersion = props && props.apiVersion ? props.apiVersion : '1'
         this.limit = props && props.limit ? props.limit : '1'
+        this.adminInfo = props && props.adminInfo ? props.adminInfo : false
     }
 
     setKey(key) {
@@ -53,6 +54,11 @@ class BaatoReverseSearch {
         return this
     }
 
+    setAdminInfo(adminInfo) {
+        this.adminInfo = adminInfo
+        return this
+    }
+
 
     async doRequest() {
         if (this.key !== null) {
@@ -63,6 +69,7 @@ class BaatoReverseSearch {
                     lon: this.lon,
                     radius: this.radius,
                     limit: this.limit,
+                    adminInfo: this.adminInfo,
                 },
             })
                 .then(response => response.data)
